@@ -30,6 +30,7 @@ ChatBot::ChatBot(std::string filename)
     _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
 }
 
+// destructor (Task 2: The Rule of Five-Rule One)
 ChatBot::~ChatBot()
 {
     std::cout << "ChatBot Destructor" << std::endl;
@@ -45,6 +46,93 @@ ChatBot::~ChatBot()
 //// STUDENT CODE
 ////
 
+// copy constructor (Task 2: The Rule of Five-Rule Two)
+// copy constructor takes an lvalue reference to the source instance
+// const reference-->promise that they won't modify the content of source
+
+ChatBot::ChatBot(const ChatBot &source){
+
+    std::cout << "ChatBot Copy Constructor" << std::endl;
+
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+
+    _image = new wxBitmap(*source._image); //allocate memory to heap
+
+}
+// copy assignment (Task 2: The Rule of Five-Rule Three)
+ChatBot& ChatBot::operator=(const ChatBot &source){
+
+    std::cout << "ChatBot Copy Assignment" << std::endl;
+
+    //protects against self-assignment
+    if (this == &source){
+        return *this;
+    }
+
+    //wxWidgets used NULL
+    if(_image != NULL) 
+    {
+        delete _image;
+        _image = NULL;
+    }
+ 
+    _image = new wxBitmap(*source._image);//allocate memory on heap
+
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+
+    return *this;
+}
+
+// move constructor (Task 2: The Rule of Five-Rule Four)
+ChatBot::ChatBot(ChatBot &&source){
+
+    std::cout << "ChatBot Move Constructor" << std::endl;
+
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+    _image = source._image;// copy pointer
+
+    source._currentNode = nullptr;
+    source._rootNode = nullptr;
+    source._chatLogic = nullptr;
+    source._image = NULL;
+
+}
+// move assignment operator (Task 2: The Rule of Five-Rule Five)
+ChatBot& ChatBot::operator=(ChatBot &&source){
+
+    std::cout << "ChatBot Move Assignment Operator" << std::endl;
+
+    //protects against self-assignment
+    if (this == &source){
+        return *this;
+    }
+
+    //wxWidgets used NULL
+    if(_image != NULL) 
+    {
+        delete _image;
+        _image = NULL;
+    }
+
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+    _image = source._image;
+
+    source._currentNode = nullptr;
+    source._rootNode = nullptr;
+    source._chatLogic = nullptr;
+    source._image = NULL;
+
+    return *this;
+}
+// 
 ////
 //// EOF STUDENT CODE
 
