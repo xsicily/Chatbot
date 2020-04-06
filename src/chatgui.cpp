@@ -5,6 +5,8 @@
 #include "chatbot.h"
 #include "chatlogic.h"
 #include "chatgui.h"
+#include <memory>
+#include <iostream>
 
 // size of chatbot window
 const int width = 414;
@@ -117,8 +119,12 @@ ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, wxWindowID id)
     //// STUDENT CODE
     ////
 
+    //Task 1: Exclusive ownership 1
+    //make _chatLogic an exclusive resource to ChatBotPanelDialog using smart pointer
+
     // create chat logic instance
-    _chatLogic = new ChatLogic(); 
+    //_chatLogic = new ChatLogic(); 
+    _chatLogic = std::make_unique<ChatLogic>();
 
     // pass pointer to chatbot dialog so answers can be displayed in GUI
     _chatLogic->SetPanelDialogHandle(this);
@@ -135,7 +141,7 @@ ChatBotPanelDialog::~ChatBotPanelDialog()
     //// STUDENT CODE
     ////
 
-    delete _chatLogic;
+    //delete _chatLogic; // _chatLogic will be gone with destructor
 
     ////
     //// EOF STUDENT CODE
@@ -163,7 +169,8 @@ void ChatBotPanelDialog::AddDialogItem(wxString text, bool isFromUser)
 void ChatBotPanelDialog::PrintChatbotResponse(std::string response)
 {
     // convert string into wxString and add dialog element
-    wxString botText(response.c_str(), wxConvUTF8);
+    //wxString botText(response.c_str(), wxConvUTF8);
+    wxString botText = wxString::FromUTF8(response.c_str());
     AddDialogItem(botText, false);
 }
 
