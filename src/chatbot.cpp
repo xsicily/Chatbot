@@ -57,6 +57,7 @@ ChatBot::ChatBot(const ChatBot &source){
     _currentNode = source._currentNode;
     _rootNode = source._rootNode;
     _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
 
     _image = new wxBitmap(*source._image); //allocate memory to heap
 
@@ -83,6 +84,7 @@ ChatBot& ChatBot::operator=(const ChatBot &source){
     _currentNode = source._currentNode;
     _rootNode = source._rootNode;
     _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
 
     return *this;
 }
@@ -95,6 +97,7 @@ ChatBot::ChatBot(ChatBot &&source){
     _currentNode = source._currentNode;
     _rootNode = source._rootNode;
     _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
     _image = source._image;// copy pointer
 
     source._currentNode = nullptr;
@@ -123,6 +126,7 @@ ChatBot& ChatBot::operator=(ChatBot &&source){
     _currentNode = source._currentNode;
     _rootNode = source._rootNode;
     _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
     _image = source._image;
 
     source._currentNode = nullptr;

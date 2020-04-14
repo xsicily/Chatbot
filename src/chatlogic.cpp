@@ -36,24 +36,24 @@ ChatLogic::~ChatLogic()
 {
     //// STUDENT CODE
     //// no need to deallocate memory
-    /*
+    
     // delete chatbot instance
-    delete _chatBot;
+    //delete _chatBot;
 
     // delete all nodes
-    for (auto it = std::begin(_nodes); it != std::end(_nodes); ++it)
-    {
-        delete *it;
+    //for (auto it = std::begin(_nodes); it != std::end(_nodes); ++it)
+    //{
+    //  delete *it;
         
-    }
+    //}
 
     // delete all edges
-    for (auto it = std::begin(_edges); it != std::end(_edges); ++it)
-    {
-        delete *it;
+    //for (auto it = std::begin(_edges); it != std::end(_edges); ++it)
+    //{
+    //    delete *it;
 
-    }
-    */
+    //}
+    
     ////
     //// EOF STUDENT CODE
 }
@@ -230,7 +230,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
 
             if (rootNode == nullptr)
             {
-                rootNode = std::move(*it).get(); // assign current node to root
+                rootNode = (*it).get(); // assign current node to root
             }
             else
             {

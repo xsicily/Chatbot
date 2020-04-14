@@ -169,8 +169,8 @@ void ChatBotPanelDialog::AddDialogItem(wxString text, bool isFromUser)
 void ChatBotPanelDialog::PrintChatbotResponse(std::string response)
 {
     // convert string into wxString and add dialog element
-    //wxString botText(response.c_str(), wxConvUTF8);
-    wxString botText = wxString::FromUTF8(response.c_str());
+    wxString botText(response.c_str(), wxConvUTF8);
+    //wxString botText = wxString::FromUTF8(response.c_str());
     AddDialogItem(botText, false);
 }
 
